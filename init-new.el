@@ -1,15 +1,15 @@
+(setq el-get-dir (file-truename ".emacs.d/el-get"))
+(add-to-list 'load-path (file-truename ".emacs.d/el-get/el-get"))
+(load-file "el-get-install.el")
 
-(add-to-list 'load-path "~/.emacs.d/org-mode/contrib/lisp") ;; <- adjust
-(add-to-list 'load-path "~/.emacs.d/org-mode/lisp") ;; <- adjust
-(add-to-list 'load-path "~/.emacs.d/org-mode") ;; <- adjust
+(setq el-get-sources
+      (list (append '(:branch "master" ; "release_7.9.3f"
+                      :shallow t
+                     ) (el-get-read-recipe 'org-mode))))
+(el-get 'sync (mapcar 'el-get-source-name el-get-sources))
 
 (require 'org-install)
-(require 'org-export)
-(require 'org-e-latex)
-
-;; this line only required until the upcomming Org-mode/Emacs24 sync
-(load "~/.emacs.d/org-mode/lisp/org-exp-blocks.el")
-
+(require 'ox-latex)
 
 ;; Configure Babel to support all languages included in the manuscript
 (org-babel-do-load-languages
@@ -26,37 +26,37 @@
 
 ;; Configure Org-mode
   (setq org-export-latex-hyperref-format "\\ref{%s}")
-  (setq org-entities-user nil) 
+  (setq org-entities-user nil)
   (add-to-list 'org-entities-user '("space" "\\ " nil " " " " " " " "))
-  (setq org-e-latex-pdf-process '("texi2dvi --clean --verbose --batch %f"))
-  (setq org-export-latex-packages-alist nil)
-  (add-to-list 'org-export-latex-packages-alist '("" "hyperref"))
-  (add-to-list 'org-export-latex-packages-alist '("" "graphicx"))
+  (setq org-latex-pdf-process '("texi2dvi --clean --verbose --batch %f"))
+  (setq org-latex-packages-alist nil)
+  (add-to-list 'org-latex-packages-alist '("" "hyperref"))
+  (add-to-list 'org-latex-packages-alist '("" "graphicx"))
 
   (require 'org-special-blocks)
 
-(org-add-link-type 
+(org-add-link-type
    "cite" nil
    (lambda (path desc format)
      (cond
       ((eq format 'latex)
              (format "\\cite{%s}" path)))))
 
-(org-add-link-type 
+(org-add-link-type
    "acm" nil
    (lambda (path desc format)
      (cond
       ((eq format 'latex)
              (format "{\\%s{%s}}" path desc)))))
 
-(add-to-list 'org-e-latex-classes
-               '("acm-proc-article-sp"
-                 "\\documentclass{acm_proc_article-sp}
-              [NO-DEFAULT-PACKAGES]
-              [PACKAGES]
-              [EXTRA]"
-                 ("\\section{%s}" . "\\section*{%s}")
-                 ("\\subsection{%s}" . "\\subsection*{%s}")
-                 ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
-                 ("\\paragraph{%s}" . "\\paragraph*{%s}")
-                 ("\\subparagraph{%s}" . "\\subparagraph*{%s}")))
+(custom-set-variables
+ '(org-latex-classes
+   '(("acm-proc-article-sp" "\\documentclass{acm_proc_article-sp}
+[NO-DEFAULT-PACKAGES]
+[PACKAGES]
+[EXTRA]"
+("\\section{%s}" . "\\section*{%s}")
+("\\subsection{%s}" . "\\subsection*{%s}")
+("\\subsubsection{%s}" . "\\subsubsection*{%s}")
+("\\paragraph{%s}" . "\\paragraph*{%s}")
+("\\subparagraph{%s}" . "\\subparagraph*{%s}")))))

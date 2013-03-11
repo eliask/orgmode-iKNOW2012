@@ -1,11 +1,11 @@
-#+TITLE: 
+#+TITLE:
 #+LANGUAGE:  en
 #+OPTIONS: H:5 author:nil email:nil creator:nil timestamp:nil skip:nil toc:nil
 #+EXPORT_SELECT_TAGS: export
 #+EXPORT_EXCLUDE_TAGS: noexport
 #+LaTeX_CLASS: acm-proc-article-sp
 
-## FIXXME: do *not* fill out "+TITLE' above!
+#+COMMENT: ## FIXXME: do *not* fill out "+TITLE' above!
 
 #+COMMENT: executing this command via C-c C-c generates the PDF output file:
 #+BEGIN_SRC sh :exports none
@@ -34,7 +34,7 @@ paper is available on github
 #+name: author-list
 #+header: :var authors=authorlist
 #+header: :var add-authors=additional-authors
-#+header: :results latex 
+#+header: :results latex
 #+header: :exports results
 #+BEGIN_SRC emacs-lisp
     (defun author-record (r)
@@ -47,7 +47,7 @@ paper is available on github
           (sixth r))
         "\\and")
     )
-    
+
   (defun non-empty (list)
     (let ( (i 0))
     (mapcar #'(lambda (elem)
@@ -56,18 +56,18 @@ paper is available on github
             list)
     i)
   )
-    
+
     (defun add-author-record (r)
       (format "%s (%s, email:
-        {\\texttt{%s}})" 
+        {\\texttt{%s}})"
               (first r) (second r) (third r)))
-    
+
     (let ( (i (+ (non-empty (cdr (cdr authors))) (- (length add-authors) 2) ))
            (a (mapcar (lambda (row)
-                        (author-record row)) 
+                        (author-record row))
                       (cdr (cdr authors))))
            (b (mapcar (lambda (row)
-                        (add-author-record row)) 
+                        (add-author-record row))
                       (cdr (cdr add-authors))))
            )
       (concat
@@ -79,7 +79,7 @@ paper is available on github
                    (mapconcat 'identity b ", ")
                    ".}")
          ())))
-          
+
 #+END_SRC
 
 \maketitle
@@ -100,11 +100,11 @@ languages, and the describing text of a paper in one single file.
 
 #+name: ACM-categories
 #+header: :var c=categories
-#+header: :results latex 
+#+header: :results latex
 #+header: :exports results
 #+BEGIN_SRC emacs-lisp
   (defun category-record (r)
-    (format "\\category{%s}{%s}{%s}[%s]" 
+    (format "\\category{%s}{%s}{%s}[%s]"
             (first r) (second r) (third r) (fourth r)))
   (let ( (i (mapcar (lambda (row)
             (category-record row))
@@ -149,7 +149,7 @@ Using a real world example, this paper develops a data processing path
 starting from raw data within comma-separated values (\myacro{CSV})
 files up to visualizing plots. Different computer languages are part
 of this process: command line scripting tools, Python[fn:python], and
-R[fn:r-lang]. 
+R[fn:r-lang].
 
 Data is generated or processed using one computer language whose
 results are transferred to the next one which might be a different
@@ -218,25 +218,25 @@ some aspects that make the difference syntax complexity obvious:
 #+BEGIN_EXAMPLE
 \begin{itemize}
 \item First item including a \texttt{filename.txt}.
-\item Second line with an 
+\item Second line with an
   \href{http://orgmodeorg}{URL of Org-mode}
-\item An URL alone is even simpler: 
+\item An URL alone is even simpler:
   \url{http://tagtore.org}
   \begin{enumerate}
   \item indented enumerated list.
-  \item This one contains \emph{emphasized} and 
+  \item This one contains \emph{emphasized} and
     \textbf{bold} words.
   \end{enumerate}
 \end{itemize}
 
-The next part consists of a source 
-code\footnote{Using the \texttt{listings} 
+The next part consists of a source
+code\footnote{Using the \texttt{listings}
   package.} example:
 
 \begin{lstlisting}[language=Python]
 def hello_world():
     print "Hello World"
-  
+
 hello_world()
 \end{lstlisting}
 
@@ -257,20 +257,20 @@ like following lines:
 
 #+BEGIN_EXAMPLE
 - First item including a ~filename.txt~.
-- Second line with 
+- Second line with
   an [[http://orgmodeorg][URL of Org-mode]]
 - An URL alone is even simpler: http://tagtore.org
   1. indented enumerated list.
-  2. This one contains /emphasized/ and 
+  2. This one contains /emphasized/ and
      *bold* words.
 
-The next part consists of a source 
+The next part consists of a source
 code[fn:lst] example:
 
 #+BEGIN_SRC python :exports code
 def hello_world():
     print "Hello World"
-  
+
 hello_world()
 #+END_SRC
 
@@ -288,20 +288,20 @@ When Org-mode exports this code to \myacro{PDF} using \LaTeX{} the
 results looks like this:
 
 - First item including a ~filename.txt~.
-- Second line with 
+- Second line with
   an [[http://orgmodeorg][URL of Org-mode]]
 - An URL alone is even simpler: http://tagtore.org
   1. indented enumerated list.
-  2. This one contains /emphasized/ and 
+  2. This one contains /emphasized/ and
      *bold* words.
 
-The next part consists of a source 
+The next part consists of a source
 code[fn:lst] example:
 
 #+BEGIN_SRC python :exports code
 def hello_world():
     print "Hello World"
-  
+
 hello_world()
 #+END_SRC
 
@@ -353,13 +353,13 @@ times, we want to filter out all other values that are irrelevant for
 this analysis. We are using \myacro{GNU} shell commands and tools to
 accomplish this task.
 
-The following shell commands 
+The following shell commands
 \begin{enumerate}
 \item reads in data from a \myacro{CSV} file,
 \item removes all values before the character ";" (thus removing all values
-related to number of mouse clicks), 
+related to number of mouse clicks),
 \item removes all incomplete lines (containing the string
-\enquote{TC}), 
+\enquote{TC}),
 \item and removes the header line as well (using the \texttt{tail}
 command).
 \end{enumerate}
@@ -369,7 +369,7 @@ command).
 sed 's/.*;//' refinding_tagstore.csv | \
    grep -v "TC" | \
    tail -n +2
-#+END_SRC 
+#+END_SRC
 
 #+RESULTS: TS-time-per-task
 |  5.7 |  3.8 |  4.3 |  2.4 |  4.3 | 3.2 |
@@ -390,7 +390,7 @@ sed 's/.*;//' refinding_tagstore.csv | \
 
 The table above resembles the direct output of the command provided
 above. Using Org-mode the user can decide, if the commands, or the
-output, or both gets printed in the exported file. 
+output, or both gets printed in the exported file.
 
 ** Generating Mean Values
 
@@ -457,7 +457,7 @@ for the second test condition, the folder condition.
 sed 's/.*;//' refinding_folders.csv | \
    grep -v "TC" | \
    tail -n +2
-#+END_SRC 
+#+END_SRC
 
 #+RESULTS: F-time-per-task
 |  6.7 | 5.4 |  2.4 |  3.9 | 3.6 | 3.8 |
@@ -513,7 +513,7 @@ echo ${myvalues} | tr ' ' '\n' | sort -nr
 
 We do now have the second list of average task times which relates to
 the folder condition of the formal experiment.
-  
+
 ** Plotting Data
 
 The open source statistical software R offers many different kind of
@@ -525,16 +525,16 @@ boxplot graph, we are using the following R script:
 png('my_boxplot_data.png')
 ## following two commands compensate a bug
 ## in the Babel method which should be fixed soon:
-mFdata=c(4.3, 3.72, 5.1, 4.03, 5.7, 6.97, 5.68, 
-         11.02, 4.45, 3.07, 12.32, 5.05, 7.95, 
+mFdata=c(4.3, 3.72, 5.1, 4.03, 5.7, 6.97, 5.68,
+         11.02, 4.45, 3.07, 12.32, 5.05, 7.95,
          5.72, 4.77, 3.65, 6.53)
-mTSdata=c(3.95, 4.25, 5.22, 6.2, 5.27, 10.27, 
-          4.63, 5.97, 3.27, 4.55, 4.55, 6.92, 
+mTSdata=c(3.95, 4.25, 5.22, 6.2, 5.27, 10.27,
+          4.63, 5.97, 3.27, 4.55, 4.55, 6.92,
           7.48, 6.57, 7.25)
-boxplot(list(mTSdata, mFdata), 
-    names=c("tagstore", "folders"), 
-    xlab="Task Times", ylab="Seconds", 
-    pars = list(boxwex = 0.3, staplewex = 0.5, 
+boxplot(list(mTSdata, mFdata),
+    names=c("tagstore", "folders"),
+    xlab="Task Times", ylab="Seconds",
+    pars = list(boxwex = 0.3, staplewex = 0.5,
     boxfill="lightblue"))
 #+END_SRC
 
@@ -577,7 +577,7 @@ plt.savefig("my_hist.png", format="png")
 png('my_boxplot_test.png')
 #lmts <- range(x1,x2,y1,y2)
 par(mfrow = c(1, 2))
-boxplot(mydata, mydata, xlab="x") 
+boxplot(mydata, mydata, xlab="x")
 #+END_SRC
 
 #+RESULTS: boxplot-test
@@ -632,7 +632,7 @@ export[fn:newexportcmd].
 Usually, each Emacs user has Emacs configuration files that are
 highly personalized. For generating the \myacro{PDF} export file
 independent of the current user configuration, a stand-alone Emacs
-configuration file was created. 
+configuration file was created.
 
 Having to adopt to the specifications to the \myacro{ACM} template
 a number of settings had to be altered. There were still some issues
@@ -666,7 +666,7 @@ those workarounds will be minimized or removed totally.
 
 \bibliographystyle{abbrv}
 # change bibliography name to suit
-\bibliography{references}  
+\bibliography{references}
 
 
 * Instructions for use                                             :noexport:
@@ -725,25 +725,25 @@ insert the citation correctly.
 
 A link type, =acm=, is defined to insert ACM-specific commands used to
 italicize words in section headings.  See the text for examples of its
-use. 
+use.
 
 #+name: initialize-new-exporter
 #+header: :tangle init-new.el
 #+header: :results silent
 #+header: :exports none
-#+begin_src emacs-lisp 
+#+begin_src emacs-lisp
   (add-to-list 'load-path "~/.emacs.d/org-mode/contrib/lisp") ;; <- adjust
   (add-to-list 'load-path "~/.emacs.d/org-mode/lisp") ;; <- adjust
   (add-to-list 'load-path "~/.emacs.d/org-mode") ;; <- adjust
-  
+
   (require 'org-install)
   (require 'org-export)
   (require 'org-e-latex)
-  
+
   ;; this line only required until the upcomming Org-mode/Emacs24 sync
   (load "~/.emacs.d/org-mode/lisp/org-exp-blocks.el")
-  
-  
+
+
   ;; Configure Babel to support all languages included in the manuscript
   (org-babel-do-load-languages
    'org-babel-load-languages
@@ -751,10 +751,10 @@ use.
      (org        . t)))
   (setq org-confirm-babel-evaluate nil)
   (setq toggle-debug-on-error t)
-  
+
   ;; Configure Org-mode
     (setq org-export-latex-hyperref-format "\\ref{%s}")
-    (setq org-entities-user nil) 
+    (setq org-entities-user nil)
     (add-to-list 'org-entities-user '("space" "\\ " nil " " " " " " " "))
     (setq org-e-latex-pdf-process '("texi2dvi --clean --verbose --batch %f"))
     (setq org-export-latex-packages-alist nil)
@@ -762,21 +762,21 @@ use.
     (add-to-list 'org-export-latex-packages-alist '("" "graphicx"))
 
     (require 'org-special-blocks)
-  
-  (org-add-link-type 
+
+  (org-add-link-type
      "cite" nil
      (lambda (path desc format)
        (cond
         ((eq format 'latex)
                (format "\\cite{%s}" path)))))
-  
-  (org-add-link-type 
+
+  (org-add-link-type
      "acm" nil
      (lambda (path desc format)
        (cond
         ((eq format 'latex)
                (format "{\\%s{%s}}" path desc)))))
-  
+
   (add-to-list 'org-e-latex-classes
                  '("acm-proc-article-sp"
                    "\\documentclass{acm_proc_article-sp}
@@ -810,57 +810,57 @@ insert the citation correctly.
 
 A link type, =acm=, is defined to insert ACM-specific commands used to
 italicize words in section headings.  See the text for examples of its
-use. 
+use.
 
 #+name: initialize-old-exporter
 #+header: :tangle init-old.el
 #+header: :results silent
 #+header: :exports none
-#+begin_src emacs-lisp 
+#+begin_src emacs-lisp
   (add-to-list 'load-path "~/.emacs.d/src/org/lisp") ;; <- adjust
   (add-to-list 'load-path "~/.emacs.d/src/org") ;; <- adjust
-  
+
   (require 'org-install)
   (require 'org-latex)
-  
+
   ;; this line only required until the upcoming Org-mode/Emacs24 sync
   (load "~/.emacs.d/src/org/lisp/org-exp-blocks.el")
-  
-  
+
+
   ;; Configure Babel to support all languages included in the manuscript
   (org-babel-do-load-languages
    'org-babel-load-languages
    '((emacs-lisp . t)
      (org        . t)))
   (setq org-confirm-babel-evaluate nil)
-  
+
   ;; Configure Org-mode
     (setq org-export-latex-hyperref-format "\\ref{%s}")
     (setq org-entities-user '(("space" "\\ " nil " " " " " " " ")))
     (setq org-latex-to-pdf-process '("texi2dvi --clean --verbose --batch %f"))
-  
+
     (require 'org-special-blocks)
-    (defun org-export-latex-no-toc (depth)  
+    (defun org-export-latex-no-toc (depth)
       (when depth
         (format "%% Org-mode is exporting headings to %s levels.\n"
                 depth)))
     (setq org-export-latex-format-toc-function 'org-export-latex-no-toc)
     (setq org-export-pdf-remove-logfiles nil)
-  
-  (org-add-link-type 
+
+  (org-add-link-type
      "cite" nil
      (lambda (path desc format)
        (cond
         ((eq format 'latex)
                (format "\\cite{%s}" path)))))
-  
-  (org-add-link-type 
+
+  (org-add-link-type
      "acm" nil
      (lambda (path desc format)
        (cond
         ((eq format 'latex)
                (format "{\\%s{%s}}" path desc)))))
-  
+
   (add-to-list 'org-export-latex-classes
                  '("acm-proc-article-sp"
                    "\\documentclass{acm_proc_article-sp}
@@ -883,7 +883,7 @@ is set up to use the old exporter.  It will need to be modified to run
 the new exporter.
 
 Once this is done, evaluate the code block with C-c C-c to create a
-Makefile.  
+Makefile.
 
 #+name: configure-makefile
 #+header: :file Makefile
@@ -898,15 +898,15 @@ Makefile.
        (format "CC=gcc
     EMACS=%s
     BATCH_EMACS=$(EMACS) --batch -Q -l %s %s
-    
+
     all: %s.pdf
-    
+
     %s.tex: %s.org\n\t$(BATCH_EMACS) -f %s
-    
+
     %s.pdf: %s.tex\n\trm -f %s.aux\n\tif pdflatex %s.tex </dev/null; then \\\n\t\ttrue; \\\n\telse \\\n\t\tstat=$$?; touch %s.pdf; exit $$stat; \\\n\tfi\n\tbibtex %s\n\twhile grep \"Rerun to get\" %s.log; do \\\n\t\tif pdflatex %s.tex </dev/null; then \\\n\t\t\ttrue; \\\n\t\telse \\\n\t\t\tstat=$$?; touch %s.pdf; exit $$stat; \\\n\t\tfi; \\\n\tdone
-    
+
     %s.ps: %s.pdf\n\tpdf2ps %s.pdf
-    
+
     clean:\n\trm -f *.aux *.log  *.dvi *.blg *.bbl *.toc *.tex *~ *.out %s.pdf *.xml *.lot *.lof
     " emacs init-file (file-name-nondirectory (buffer-file-name)) f f f g f f f f f f f f f f f f f))
 #+END_SRC
@@ -983,7 +983,7 @@ separated list wrapped by the command.
 #+header: :var in-list=term-list
 #+header: :eval noexport
 #+header: :var in-command="terms"
-#+header: :results latex 
+#+header: :results latex
 #+header: :exports results
 #+BEGIN_SRC emacs-lisp
 (defun list-to-comma (the-list)
