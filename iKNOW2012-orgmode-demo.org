@@ -5,7 +5,7 @@
 #+EXPORT_EXCLUDE_TAGS: noexport
 #+LaTeX_CLASS: acm-proc-article-sp
 
-## FIXXME: do *not* fill out "+TITLE' above!
+#+COMMENT: ## FIXXME: do *not* fill out "+TITLE' above!
 
 #+COMMENT: executing this command via C-c C-c generates the PDF output file:
 #+BEGIN_SRC sh :exports none
